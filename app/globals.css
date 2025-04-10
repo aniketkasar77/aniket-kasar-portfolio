@@ -13,6 +13,8 @@
   --text-gradient: linear-gradient(to right, #38bdf8, #3b82f6, #2563eb);
   --card-bg: rgba(30, 41, 59, 0.8);
   --card-border: rgba(71, 85, 105, 0.3);
+  --gradient-start: #2a6fdb;
+  --gradient-end: #4054b4;
 }
 
 @theme inline {
@@ -34,17 +36,18 @@ body {
   color: var(--foreground);
   font-family: 'Poppins', Arial, sans-serif;
   min-height: 100vh;
+  cursor: none;
 }
 
 .text-gradient {
-  background: var(--text-gradient);
+  background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .bg-gradient {
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent));
+  background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
 }
 
 .card {
@@ -52,4 +55,80 @@ body {
   border: 1px solid var(--card-border);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+/* Animated Glow */
+.glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(66, 133, 244, 0.2) 0%, transparent 70%);
+  transform: translateY(-60%);
+  animation: glow-animation 6s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes glow-animation {
+  0% {
+    transform: translateY(-60%);
+  }
+  50% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-60%);
+  }
+}
+
+/* Blinking Cursor Animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+/* Float Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
 }
